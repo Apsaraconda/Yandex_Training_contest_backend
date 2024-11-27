@@ -47,7 +47,6 @@ class SegmentTree {
   }
 
   void Update(uint32_t pos, uint32_t value) {
-    // uint32_t n = 1;
     data_[pos += size_] = value;
     for (pos /= 2; pos > 0; pos /= 2)
       data_[pos] = data_[2 * pos] + data_[2 * pos + 1];
@@ -73,22 +72,16 @@ int main() {
   std::cin >> N;
 
   std::vector<Zakaz> zakazy(N);
-  // uint32_t max_end = 0;  // для определения размера дерева
 
   for (uint32_t i = 0; i < N; ++i) {
     uint32_t start, end, cost;
     std::cin >> start >> end >> cost;
     zakazy[i] = Zakaz(start, end, cost);
-    // max_end = std::max({max_end, start, end});  // обновляем максимальный end
   }
   uint32_t tree_size = N;
   if (N % 2 != 0) tree_size = tree_size + 1;
   SegmentTree startTree(tree_size);
   SegmentTree endTree(tree_size);
-  // std::cout << "max_size "<< startTree.data_.max_size() << '\n';
-  // std::cout << "capacity " << startTree.data_.capacity() << '\n';
-  // std::cout << "std::numeric_limits<uint64_t>::max() " <<
-  // std::numeric_limits<uint64_t>::max() << '\n';
   std::stable_sort(zakazy.begin(), zakazy.end(),
                    [](const Zakaz &a, const Zakaz &b) {
                      return a.GetStart() < b.GetStart();
