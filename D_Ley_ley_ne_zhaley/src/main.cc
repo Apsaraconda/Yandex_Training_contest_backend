@@ -8,11 +8,9 @@ class Zakaz {
  public:
   Zakaz(uint32_t start = 0, uint32_t end = 0, uint32_t cost = 0)
       : start_(start), end_(end), cost_(cost) {}
-
   uint32_t GetCost() const { return cost_; }
   uint32_t GetStart() const { return start_; }
   uint32_t GetEnd() const { return end_; }
-
  private:
   uint32_t start_;
   uint32_t end_;
@@ -27,7 +25,6 @@ class Zapros {
   uint8_t GetType() const { return type_; }
   uint32_t GetStart() const { return start_; }
   uint32_t GetEnd() const { return end_; }
-
  private:
   uint32_t start_;
   uint32_t end_;
@@ -37,7 +34,6 @@ class Zapros {
 class SegmentTree {
  public:
   SegmentTree(size_t n) : size_(n), data_(2 * n, 0) {}
-
   // Функция для добавления значения в дерево
   void Build(uint32_t pos, uint32_t value) { data_[pos + size_] = value; }
   void BuildSums() {
@@ -45,13 +41,11 @@ class SegmentTree {
       data_[i] = data_[2 * i] + data_[2 * i + 1];
     }
   }
-
   void Update(uint32_t pos, uint32_t value) {
     data_[pos += size_] = value;
     for (pos /= 2; pos > 0; pos /= 2)
       data_[pos] = data_[2 * pos] + data_[2 * pos + 1];
   }
-
   uint64_t Sum(uint32_t l, uint32_t r) {
     uint64_t res = 0;
     l += size_, r += size_;
@@ -61,7 +55,6 @@ class SegmentTree {
     }
     return res;
   }
-
  private:
   size_t size_;
   std::vector<uint64_t> data_;
@@ -111,7 +104,6 @@ int main() {
 
   for (const auto &zapros : zaprosy) {
     uint32_t sum = 0;
-
     if (zapros.GetType() == '1') {  // Type 1 запрос
       uint32_t begin = 0;
       uint32_t end = 0;
